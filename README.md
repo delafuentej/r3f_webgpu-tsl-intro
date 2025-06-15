@@ -2,6 +2,14 @@
 
 This project showcases a 3D scene of a winning Ferrari F1 racing driver created using React Three Fiber, leveraging the latest WebGPU renderer and Three Shading Language (TSL). It is built with Vite and features advanced post-processing effects.
 
+## 📸 Preview
+
+![App Preview](public/gif/ferrari.gif)
+
+## 🌍 Live Demo
+
+[Click here to view the app online](https://r3f-webgpu-tsl-intro.vercel.app/)
+
 ## Features
 
 - Custom materials using Three Shading Language (TSL)
