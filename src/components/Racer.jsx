@@ -8,13 +8,17 @@ import { useControls } from "leva";
 import DissolveMaterial from "./materials/DissolveMaterial";
 
 function Racer(props) {
-  const dissolveMaterialProps = useControls("Dissolve Effect", {
-    visible: { value: true },
-    size: { value: 12, min: 0, max: 20 },
-    thickness: { value: 0.1, min: 0, max: 1 },
-    dissolveColor: { value: "orange" },
-    intensity: { value: 2, min: 0, max: 10 },
-  });
+  const dissolveMaterialProps = useControls(
+    "Dissolve Effect",
+    {
+      visible: { value: true },
+      size: { value: 12, min: 0, max: 20 },
+      thickness: { value: 0.1, min: 0, max: 1 },
+      dissolveColor: { value: "orange" },
+      intensity: { value: 2, min: 0, max: 10 },
+    },
+    { collapsed: true }
+  );
   const group = useRef();
   const { nodes, materials, animations } = useGLTF("/models/racer-opt.glb");
   const { actions } = useAnimations(animations, group);

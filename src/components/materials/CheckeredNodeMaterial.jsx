@@ -14,11 +14,14 @@ import {
   vec4,
   length,
   smoothstep,
+  time,
+  Fn,
 } from "three/tsl";
 
 export const CheckeredNodeMaterial = ({
   colorA = "#ffffff", // Blanco
   colorB = "#111111", // Negro
+  blinkSpeed = 5,
   scale = 8, // número de cuadros (más alto = más pequeños)
   emissiveColor = "gold",
 }) => {
@@ -26,9 +29,19 @@ export const CheckeredNodeMaterial = ({
     const uniforms = {
       colorA: uniform(color(colorA)),
       colorB: uniform(color(colorB)),
+      blinkSpeed: uniform(blinkSpeed),
       scale: uniform(scale),
       emissiveColor: uniform(color(emissiveColor)),
     };
+
+    const blink = Fn(([t, speed]) => {
+      const blinkValue = t.mul(speed).sin().mul(0.5).add(0.5).toVar();
+      //   If(uv().x.greaterThan(0.5), () => {
+      //     blinkValue.assign(t.mul(speed).cos().mul(0.5).add(0.5));
+      //   });
+
+      return blinkValue;
+    });
 
     let uvCentered = uv().sub(0.5).mul(2.0); // Center UV at (0,0)
     let radialDist = length(uvCentered); // Distance from center
@@ -41,7 +54,9 @@ export const CheckeredNodeMaterial = ({
     const checker = mod(floor(scaledUV.x).add(floor(scaledUV.y)), 2.0); // 0 o 1
 
     // Interpola entre colorA y colorB según el patrón
-    const finalColor = mix(uniforms.colorA, uniforms.colorB, checker);
+    const finalColor = mix(uniforms.colorA, uniforms.colorB, checker).mul(
+      blink(time, uniforms.blinkSpeed)
+    );
 
     return {
       nodes: {
