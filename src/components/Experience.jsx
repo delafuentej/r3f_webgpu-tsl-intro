@@ -46,7 +46,7 @@ export const Experience = () => {
           colorA="#ffffff"
           colorB="#000000"
           scale={18}
-          blinkSpeed={2}
+          blinkSpeed={0.5}
         />
         {/* <PracticeNodeMaterial {...materialProps} /> */}
       </mesh>
